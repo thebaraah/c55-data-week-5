@@ -7,11 +7,12 @@
 ## The prompt I gave
 
 <!-- Paste the exact prompt you gave to an LLM (ChatGPT, Claude, Copilot, etc.). -->
+I used AI to help me fix my pytest issues. The AI suggested ensuring that all required dependencies (pytest and project modules) are installed, fixing missing imports,
 
 TODO: paste your prompt here.
 
 ## The code or suggestion it returned
-
+After applying the changes, all tests passed successfully
 <!-- Paste the code or key suggestion the LLM returned. -->
 
 ```python

@@ -7,7 +7,7 @@ name: CI
 
 on:
   push:
-    branches: ["TODO-replace-with-main"]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -21,10 +21,25 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Lint
-        run: echo "TODO implement this step"
-      - name: Format
-        run: echo "TODO implement this step"
+        run: ruff check .
+      - name: Format check
+        run: ruff format . --check
       - name: Test
-        run: echo "TODO implement this step"
-      - name: Build image
-        run: echo "TODO implement this step"
+        run: API_KEY=test pytest -q
+      - name: Build Docker image
+        run: docker build -t barbari-pipeline:${{ github.sha }} .
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ACR login
+        run: az acr login --name hyfregistry
+
+      - name: Tag image for ACR
+        run: |
+          docker tag barbari-pipeline:${{ github.sha }} hyfregistry.azurecr.io/barbari-pipeline:${{ github.sha }}
+
+      - name: Push image to ACR
+        run: |
+          docker push hyfregistry.azurecr.io/barbari-pipeline:${{ github.sha }}

@@ -11,3 +11,10 @@
 # ruff==
 #
 # Add your pinned dependencies below:
+azure-identity==1.17.1
+azure-storage-blob==12.19.1
+pandas==2.2.2
+numpy==2.0.1
+requests==2.32.3
+pytest==8.4.2
+matplotlib==3.9.2
