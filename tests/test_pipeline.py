@@ -3,6 +3,14 @@
 import pytest
 
 from src.pipeline import fetch_data, get_config, save_results
+from src.pipeline import clean_name
+
+def test_clean_name_strips_whitespace():
+    assert clean_name("  Alice  ") == "Alice"
+
+
+def test_clean_name_handles_empty():
+    assert clean_name("") == ""
 
 
 class TestGetConfig:

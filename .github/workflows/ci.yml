@@ -50,12 +50,9 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         run: az acr login --name hyfregistry
 
-      - name: Tag image for ACR
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
-        run: |
-          docker tag barbari-pipeline:${{ github.sha }} hyfregistry.azurecr.io/barbari-pipeline:${{ github.sha }}
-
       - name: Push image to ACR
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         run: |
+          docker tag barbari-pipeline:${{ github.sha }} hyfregistry.azurecr.io/barbari-pipeline:${{ github.sha }}
           docker push hyfregistry.azurecr.io/barbari-pipeline:${{ github.sha }}
+          
